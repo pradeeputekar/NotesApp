@@ -1,0 +1,15 @@
+.home-container {
+  text-align: center;
+  padding: 100px;
+}
+
+.welcome-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.more-info {
+  font-size: 18px;
+  color: #666;
+}
+

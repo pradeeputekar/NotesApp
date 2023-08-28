@@ -1,0 +1,26 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.about-content p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.warning {
+  margin-top: 20px;
+  color: red;
+  font-weight: bold;
+}
+
+.warning-icon {
+  display: inline-block;
+  margin-right: 10px;
+}

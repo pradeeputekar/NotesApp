@@ -1,0 +1,30 @@
+body {
+ margin: 0;
+ font-family: Arial, sans-serif;
+}
+
+.contain {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 10px;
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 10px;
+}
+
+@media (max-width: 768px) {
+ .contain {
+  grid-template-columns: repeat(2, 1fr);
+ }
+}
+
+.modal-with-bg {
+ background-image: url("./src/assets/background.jpg");
+ background-size: cover;
+ background-position: center;
+}
+
+
+.modal-with-bg .modal-content {
+ color: white; 
+}

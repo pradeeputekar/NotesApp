@@ -1,6 +1,5 @@
 import React from "react";
 import Notes from "./Notes";
-import "./Home.css";
 
 const Home = () => {
  return (

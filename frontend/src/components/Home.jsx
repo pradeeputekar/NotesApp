@@ -4,7 +4,7 @@ import "./Home.css";
 
 const Home = () => {
  return (
-  <div className="home">
+  <div style={{ backgroundColor: "black" }}>
    <Notes />
   </div>
  );

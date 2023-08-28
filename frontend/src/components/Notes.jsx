@@ -85,7 +85,7 @@ const Notes = () => {
     aria-hidden="true"
    >
     <div className="modal-dialog">
-     <div className="modal-content modal-with-bg">
+     <div className="modal-content" style={{ backgroundColor: "black" }}>
       <div className="modal-header">
        <h5
         className="modal-title"

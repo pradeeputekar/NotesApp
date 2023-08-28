@@ -18,13 +18,3 @@ body {
  }
 }
 
-.modal-with-bg {
- background-image: url("./src/assets/background.jpg");
- background-size: cover;
- background-position: center;
-}
-
-
-.modal-with-bg .modal-content {
- color: white; 
-}

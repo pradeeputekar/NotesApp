@@ -9,7 +9,7 @@ const Notes = () => {
  const navigate = useNavigate();
  const context = useContext(noteContext);
  const { notes, getNotes, editNote } = context;
- const host = "https://backend-render-app.onrender.com";
+ const host = "https://notes-app-26mq.onrender.com";
 
  useEffect(() => {
   if (localStorage.getItem("token")) {

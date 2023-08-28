@@ -9,6 +9,7 @@ const Signup = () => {
   password: "",
   cpassword: "",
  });
+ const host = "https://notes-app-26mq.onrender.com"
 
  const handleSubmit = async (e) => {
   try {
@@ -23,7 +24,7 @@ const Signup = () => {
     alert("Invalid email format");
    } else if (password === cpassword) {
     const response = await fetch(
-     "https://backend-render-app.onrender.com/api/auth/createuser",
+     `${host}/api/auth/createuser`,
      {
       method: "POST",
       headers: {

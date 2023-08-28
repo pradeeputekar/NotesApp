@@ -4,12 +4,13 @@ import {Link, useNavigate } from 'react-router-dom'
 const Login = (props) => {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({email: "", password: ""})
+  const HOST = "https://notes-app-26mq.onrender.com"
 
   const handleSubmit = async (e) => {
     try {
       
       e.preventDefault();
-      const response = await fetch('https://backend-render-app.onrender.com/api/auth/login', {
+      const response = await fetch(`${HOST}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

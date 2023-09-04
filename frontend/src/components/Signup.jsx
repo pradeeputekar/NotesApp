@@ -9,7 +9,7 @@ const Signup = () => {
   password: "",
   cpassword: "",
  });
- const host = "https://notes-app-26mq.onrender.com"
+ const host = "http://localhost:5000";
 
  const handleSubmit = async (e) => {
   try {
@@ -23,16 +23,13 @@ const Signup = () => {
    if (!isValidEmail(email)) {
     alert("Invalid email format");
    } else if (password === cpassword) {
-    const response = await fetch(
-     `${host}/api/auth/createuser`,
-     {
-      method: "POST",
-      headers: {
-       "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, email, password }),
-     }
-    );
+    const response = await fetch(`${host}/api/auth/createuser`, {
+     method: "POST",
+     headers: {
+      "Content-Type": "application/json",
+     },
+     body: JSON.stringify({ name, email, password }),
+    });
     const json = await response.json();
     if (json.success) {
      localStorage.setItem("token", json.authToken);

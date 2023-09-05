@@ -1,18 +1,30 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 const Navbar = () => {
  let location = useLocation();
  let navigate = useNavigate();
  const token = localStorage.getItem("token");
 
- const handleLogout = () => {
-  if (confirm("are you sure to logout") == true) {
-   localStorage.removeItem("token");
-   navigate("/login");
-   alert("Logged out Successfully!");
-  }
- };
+const handleLogout = () => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You'll be logged out and need to log in again to access your account.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, log out!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      localStorage.removeItem("token");
+      navigate("/login");
+      Swal.fire('Logged Out!', 'You have been logged out successfully.', 'success');
+    }
+  });
+};
+
 
  return (
   <>

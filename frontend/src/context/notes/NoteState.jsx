@@ -5,7 +5,7 @@ import NoteContext from "./noteContext.jsx";
 const NoteState = (props) => {
  const notesInitial = [];
  const [notes, setNotes] = useState(notesInitial);
-const host = "http://localhost:5000"
+const host = "https://notes-app-26mq.onrender.com"
 
  // Add a Note
  const getNotes = async () => {

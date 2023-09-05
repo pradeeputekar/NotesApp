@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import noteContext from "../context/notes/noteContext.jsx";
 import "./NoteItem.css";
+import Swal from 'sweetalert2'
 
 const NoteItem = (props) => {
  const context = useContext(noteContext);
@@ -8,11 +9,22 @@ const NoteItem = (props) => {
  const { note, updateNote } = props;
 
  const handleDelete = () => {
-  if (confirm("are you sure to delete this note") == true) {
-   deleteNote(note._id);
-   alert("Note Deleted Successfully!");
-  }
- };
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to recover this note!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      deleteNote(note._id);
+      Swal.fire('Deleted!', 'Your note has been deleted successfully.', 'success');
+    }
+  });
+};
+
  return (
   <div className="card px-0 m-1">
    <div className="card-body p-0 border">

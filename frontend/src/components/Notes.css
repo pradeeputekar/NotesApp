@@ -17,4 +17,61 @@ body {
   grid-template-columns: repeat(2, 1fr);
  }
 }
+.pagination {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin-top: 20px;
+}
 
+.pagination button {
+ margin: 0 5px;
+}
+
+.page-info {
+ font-weight: bold;
+ margin: 0 10px;
+ color: lime;
+}
+
+.pagination .disabled {
+ background-color: #ccc;
+ cursor: not-allowed;
+}
+
+.search-container {
+ display: flex;
+ align-items: center;
+ margin-bottom: 20px;
+ justify-content: flex-end;
+}
+
+.search-input {
+ width: 100%;
+ padding: 10px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ margin: 0px 15px;
+}
+@media (min-width: 768px) {
+ .search-input {
+  width: 31%; /* Set the width to 50% on screens wider than 768px */
+ }
+}
+
+@media (min-width: 1024px) {
+ .search-input {
+  width: 31%; /* Set the width to 30% on screens wider than 1024px */
+ }
+}
+
+.delete-button {
+ background-color: #dc3545; /* Red color for delete button */
+ color: #fff; /* Text color */
+ border: none;
+ border-radius: 15px;
+ margin-left: 15px;
+ padding: 10px 20px; /* Adjust padding for button size */
+ cursor: pointer;
+ font-weight: bold; /* Make text bold */
+}

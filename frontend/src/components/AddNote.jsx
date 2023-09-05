@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import noteContext from "../context/notes/noteContext.jsx";
+import Swal from "sweetalert2";
 
 const AddNote = () => {
  const context = useContext(noteContext);
@@ -10,14 +11,23 @@ const AddNote = () => {
  const handleClick = (e) => {
   e.preventDefault();
   if (note.title.length < 3) {
-   alert("title must atleast 3 character");
+   Swal.fire(
+    "Invalid Title",
+    "Title must be atleast 3 characters long",
+    "warning"
+   );
   } else if (note.description.length < 5) {
-   alert("description must be atleast 5 character");
-  } else if (note.tag.length < 1) alert("tag should not blank");
-  else {
+   Swal.fire(
+    "Invalid Description",
+    "Description must be atleast 5 characters long",
+    "warning"
+   );
+  } else if (note.tag.length < 1) {
+   Swal.fire("Invalid Tag", "Tag should not be blank", "warning");
+  } else {
    addNote(note.title, note.description, note.tag);
    setNote({ title: "", description: "", tag: "" });
-   alert("Added Successfully!");
+   Swal.fire("Done!", "Note Added Successfully", "success");
   }
  };
 

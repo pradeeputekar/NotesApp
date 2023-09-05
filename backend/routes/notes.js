@@ -110,17 +110,16 @@ router.get("/pagination", fetchuser, async (req, res) => {
  try {
   const options = {
    page: parseInt(page, 10) || 1,
-   limit: parseInt(limit, 10) || 10,
+   limit: 12,
   };
   const searchQuery = {
    $or: [
-        { title: new RegExp(search, "i") }, // "i" flag for case-insensitive search
-        { description: new RegExp(search, "i") },
-        { tag: new RegExp(search, "i") },
-      ],
-      user: req.user.id, // Ensure the notes belong to the authenticated user
-   
-  }
+    { title: new RegExp(search, "i") }, // "i" flag for case-insensitive search
+    { description: new RegExp(search, "i") },
+    { tag: new RegExp(search, "i") },
+   ],
+   user: req.user.id, // Ensure the notes belong to the authenticated user
+  };
 
   const result = await Note.paginate(searchQuery, options);
   res.json(result);

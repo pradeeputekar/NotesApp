@@ -4,13 +4,14 @@ import AddNote from "./AddNote";
 import NoteItem from "./NoteItem";
 import { useNavigate } from "react-router-dom";
 import "./Notes.css";
+import Swal from "sweetalert2";
 
 const Notes = () => {
  const navigate = useNavigate();
  const context = useContext(noteContext);
  const { notes, getNotes, editNote } = context;
- const host = "http://localhost:5000";
- const limit = 10;
+ const host = "https://notes-app-26mq.onrender.com";
+ const limit = 12;
 
  useEffect(() => {
   if (localStorage.getItem("token")) {
@@ -48,7 +49,7 @@ const Notes = () => {
  const handleClick = (e) => {
   editNote(note.id, note.etitle, note.edescription, note.etag);
   refClose.current.click();
-  alert("Updated Successfully!");
+  Swal.fire("Done!", "Updated Successfully!", "success");
  };
 
  const onChange = (e) => {
@@ -56,18 +57,33 @@ const Notes = () => {
  };
 
  const deleteUser = async () => {
-  if (confirm("are you sure to delete account permantly ?") == true) {
-   const response = await fetch(`${host}/api/auth/deleteuser`, {
-    method: "DELETE",
-    headers: {
-     "Content-Type": "application/json",
-     "auth-token": localStorage.getItem("token"),
-    },
-   });
-   localStorage.removeItem("token");
-   navigate("/login");
-   alert("account deleted Successfully!");
-  }
+  Swal.fire({
+   title: "Are you sure?",
+   text: "This will permanently delete your account!",
+   icon: "warning",
+   showCancelButton: true,
+   confirmButtonColor: "#3085d6",
+   cancelButtonColor: "#d33",
+   confirmButtonText: "Yes, delete my account",
+  }).then(async (result) => {
+   if (result.isConfirmed) {
+    const response = await fetch(`${host}/api/auth/deleteuser`, {
+     method: "DELETE",
+     headers: {
+      "Content-Type": "application/json",
+      "auth-token": localStorage.getItem("token"),
+     },
+    });
+
+    localStorage.removeItem("token");
+    navigate("/login");
+    Swal.fire(
+     "Deleted!",
+     "Your account has been deleted successfully.",
+     "success"
+    );
+   }
+  });
  };
 
  const startIndex = (currentPage - 1) * limit;
@@ -76,7 +92,7 @@ const Notes = () => {
  const handleSearch = () => {
   if (localStorage.getItem("token")) {
    fetch(
-    `${host}/api/notes/pagination?page=${currentPage}&limit=10&search=${searchQuery}`,
+    `${host}/api/notes/pagination?page=${currentPage}&limit=${limit}&search=${searchQuery}`,
     {
      method: "GET",
      headers: {
@@ -227,14 +243,15 @@ const Notes = () => {
    >
     Your Notes
    </h2>
+   <br></br>
    <div className="search-container">
     <input
      type="text"
      placeholder="Search notes by title, description, or tag"
      value={searchQuery}
      onChange={(e) => setSearchQuery(e.target.value)}
+     className="search-input"
     />
-    <button onClick={handleSearch}>Search</button>
    </div>
 
    {notes.length === 0 ? (
@@ -242,11 +259,14 @@ const Notes = () => {
      "No notes to display, please add atleast one note to display"
     </div>
    ) : !notes.some(
-    (note) =>
-      note.title.includes(searchQuery) ||
-      note.description.includes(searchQuery) ||
-      note.tag.includes(searchQuery)) ? (
-    <div>hd</div>
+      (note) =>
+       note.title.includes(searchQuery) ||
+       note.description.includes(searchQuery) ||
+       note.tag.includes(searchQuery)
+     ) ? (
+    <div style={{ color: "white", fontSize: "14px", textAlign: "center" }}>
+     "No Result Found"
+    </div>
    ) : (
     <div className="contain">
      {notes
@@ -262,17 +282,22 @@ const Notes = () => {
       })}
     </div>
    )}
+
    <div className="pagination">
     <button
+     className={`btn ${currentPage === 1 ? "disabled" : "btn-primary"}`}
      onClick={() => setCurrentPage(currentPage - 1)}
      disabled={currentPage === 1}
     >
      Previous
     </button>
-    <span>
+    <span className="page-info">
      Page {currentPage} of {totalPages}
     </span>
     <button
+     className={`btn ${
+      currentPage === totalPages ? "disabled" : "btn-primary"
+     }`}
      onClick={() => setCurrentPage(currentPage + 1)}
      disabled={currentPage === totalPages}
     >
@@ -281,7 +306,7 @@ const Notes = () => {
    </div>
 
    <br></br>
-   <button className="btn btn-outline-light btn-danger" onClick={deleteUser}>
+   <button className="delete-button" onClick={deleteUser}>
     Delete My Account
    </button>
   </>

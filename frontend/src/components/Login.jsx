@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-
+import Swal from "sweetalert2";
 
 const Login = (props) => {
  const navigate = useNavigate();
  const [credentials, setCredentials] = useState({ email: "", password: "" });
-const host = "http://localhost:5000"
+ const host = "https://notes-app-26mq.onrender.com";
 
  const handleSubmit = async (e) => {
   try {
@@ -25,13 +24,13 @@ const host = "http://localhost:5000"
    if (json.success) {
     localStorage.setItem("token", json.authToken);
     navigate("/home");
-    alert("Logged in Successfully!");
+    Swal.fire("Done!", "Logged in Successfully!", "success");
    } else {
-    alert("Invalid Credentials!");
+    Swal.fire("Error", "Invalid Credentials!", "error");
    }
   } catch (error) {
    console.log(error);
-   alert("Internal Server Error");
+   Swal.fire("Error","Internal Server Error","error");
   }
  };
 

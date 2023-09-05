@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Signup = () => {
  const navigate = useNavigate();
@@ -9,7 +10,7 @@ const Signup = () => {
   password: "",
   cpassword: "",
  });
- const host = "http://localhost:5000";
+ const host = "https://notes-app-26mq.onrender.com";
 
  const handleSubmit = async (e) => {
   try {
@@ -21,7 +22,11 @@ const Signup = () => {
    };
 
    if (!isValidEmail(email)) {
-    alert("Invalid email format");
+    Swal.fire(
+     "Invalid email format",
+     "Please enter a valid email address",
+     "warning"
+    );
    } else if (password === cpassword) {
     const response = await fetch(`${host}/api/auth/createuser`, {
      method: "POST",
@@ -34,16 +39,20 @@ const Signup = () => {
     if (json.success) {
      localStorage.setItem("token", json.authToken);
      navigate("/home");
-     alert("Accont Created Successfully!");
+     Swal.fire("Done!", "Accont Created Successfully!", "success");
     } else {
-     alert("Email already exists");
+     Swal.fire(
+      "User already exists",
+      "A user with this email address already exists. Please use a different email or login",
+      "warning"
+     );
     }
    } else {
-    alert("both password should match");
+    Swal.fire("Password do not match","The passwords you entered do not match. Please make sure both passwords are the same", "warning");
    }
   } catch (error) {
    console.log(error);
-   alert("Internal Server Error");
+   Swal.fire("Error", "Internal Server Error", "error");
   }
  };
 
@@ -81,6 +90,7 @@ const Signup = () => {
          type="text"
          autoComplete="name"
          required
+         minLength={1}
          onChange={onChange}
          className="block w-full rounded-md border-1 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         />
